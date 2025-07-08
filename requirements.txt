@@ -4,3 +4,4 @@ gunicorn
 google-generativeai
 psycopg2-binary
 pymongo
+markdown
