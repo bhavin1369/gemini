@@ -31,7 +31,7 @@ DB_CONFIG = {
     'database': 'chatbot_db',
     'user': 'chatbot_user',
     'password': '122405',
-    'port': '1369'
+    'port': '5432'
 }
 
 # Initialize model
