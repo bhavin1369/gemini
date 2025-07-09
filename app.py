@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template, jsonify, redirect, url_for, session, flash
 import os
-from dotenv import load_dotenv
 import google.generativeai as genai
 import time
 import psycopg2
@@ -11,19 +10,7 @@ from functools import wraps
 from datetime import datetime
 from markupsafe import Markup
 import markdown
-# ✅ Load environment variables from .env file
-# Only load .env locally (Render already has env vars set)
-# Only load .env locally (Render already sets env variables)
-if os.environ.get("RENDER") is None:
-    load_dotenv()
 
-DB_CONFIG = {
-    'host': os.environ.get("DB_HOST"),
-    'database': os.environ.get("DB_NAME"),
-    'user': os.environ.get("DB_USER"),
-    'password': os.environ.get("DB_PASS"),
-    'port': os.environ.get("DB_PORT", 5432)
-}
 # Initialize Flask app
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.secret_key = secrets.token_hex(16)  # Generate a secure secret key for sessions
@@ -37,6 +24,15 @@ def markdown_filter(text):
 API_KEY = "AIzaSyChFYnEka9jiBTHdTMK2jLH75X7K55ot4I"  # Replace with your actual API key
 os.environ['GOOGLE_API_KEY'] = API_KEY
 genai.configure(api_key=API_KEY)
+
+# Database configuration - UPDATE THESE WITH YOUR SETTINGS
+DB_CONFIG = {
+    'host': 'localhost',
+    'database': 'chatbot_db',
+    'user': 'chatbot_user',
+    'password': '122405',
+    'port': '1369'
+}
 
 # Initialize model
 try:
