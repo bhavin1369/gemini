@@ -13,15 +13,12 @@ from markupsafe import Markup
 import markdown
 # ✅ Load environment variables from .env file
 # Only load .env locally (Render already has env vars set)
-if os.environ.get("RENDER") is None:
-    load_dotenv()
-
 DB_CONFIG = {
-    'host': os.environ.get("DB_HOST"),
-    'database': os.environ.get("DB_NAME"),
-    'user': os.environ.get("DB_USER"),
-    'password': os.environ.get("DB_PASS"),
-    'port': os.environ.get("DB_PORT", 5432)
+    DB_HOST=dpg-d1mbncqdbo4c73f46eh0-a
+    DB_NAME=chatbot_db_8j0m
+    DB_USER=chatbot_db_8j0m_user
+    DB_PASSWORD=oIJHCow2ZLVgxaA3jQPPG0r70XZsX36V
+    DB_PORT=5432
 }
 
 # Initialize Flask app
