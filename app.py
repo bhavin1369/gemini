@@ -27,12 +27,13 @@ genai.configure(api_key=API_KEY)
 
 # Database configuration - UPDATE THESE WITH YOUR SETTINGS
 DB_CONFIG = {
-    'host': 'localhost',
-    'database': 'chatbot_db',
-    'user': 'chatbot_user',
-    'password': '122405',
-    'port': '5432'
+    'host': os.environ.get("DB_HOST"),
+    'database': os.environ.get("DB_NAME"),
+    'user': os.environ.get("DB_USER"),
+    'password': os.environ.get("DB_PASS"),
+    'port': os.environ.get("DB_PORT", 5432)  # default to 5432 if not set
 }
+
 
 # Initialize model
 try:
