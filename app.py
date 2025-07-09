@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, jsonify, redirect, url_for, session, flash
 import os
+from dotenv import load_dotenv
 import google.generativeai as genai
 import time
 import psycopg2
@@ -10,7 +11,9 @@ from functools import wraps
 from datetime import datetime
 from markupsafe import Markup
 import markdown
-
+# ✅ Load environment variables from .env file
+if os.environ.get("RENDER") is None:
+load_dotenv()
 # Initialize Flask app
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.secret_key = secrets.token_hex(16)  # Generate a secure secret key for sessions
@@ -26,14 +29,14 @@ os.environ['GOOGLE_API_KEY'] = API_KEY
 genai.configure(api_key=API_KEY)
 
 # Database configuration - UPDATE THESE WITH YOUR SETTINGS
+# ✅ Database configuration from .env
 DB_CONFIG = {
     'host': os.environ.get("DB_HOST"),
     'database': os.environ.get("DB_NAME"),
     'user': os.environ.get("DB_USER"),
     'password': os.environ.get("DB_PASS"),
-    'port': os.environ.get("DB_PORT", 5432)  # default to 5432 if not set
+    'port': os.environ.get("DB_PORT", 5432)
 }
-
 
 # Initialize model
 try:
