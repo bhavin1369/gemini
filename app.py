@@ -12,8 +12,18 @@ from datetime import datetime
 from markupsafe import Markup
 import markdown
 # ✅ Load environment variables from .env file
+# Only load .env locally (Render already has env vars set)
 if os.environ.get("RENDER") is None:
-load_dotenv()
+    load_dotenv()
+
+DB_CONFIG = {
+    'host': os.environ.get("DB_HOST"),
+    'database': os.environ.get("DB_NAME"),
+    'user': os.environ.get("DB_USER"),
+    'password': os.environ.get("DB_PASS"),
+    'port': os.environ.get("DB_PORT", 5432)
+}
+
 # Initialize Flask app
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.secret_key = secrets.token_hex(16)  # Generate a secure secret key for sessions
@@ -27,16 +37,6 @@ def markdown_filter(text):
 API_KEY = "AIzaSyChFYnEka9jiBTHdTMK2jLH75X7K55ot4I"  # Replace with your actual API key
 os.environ['GOOGLE_API_KEY'] = API_KEY
 genai.configure(api_key=API_KEY)
-
-# Database configuration - UPDATE THESE WITH YOUR SETTINGS
-# ✅ Database configuration from .env
-DB_CONFIG = {
-    'host': os.environ.get("DB_HOST"),
-    'database': os.environ.get("DB_NAME"),
-    'user': os.environ.get("DB_USER"),
-    'password': os.environ.get("DB_PASS"),
-    'port': os.environ.get("DB_PORT", 5432)
-}
 
 # Initialize model
 try:
